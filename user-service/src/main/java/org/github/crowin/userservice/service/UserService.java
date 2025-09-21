@@ -20,22 +20,10 @@ import static org.github.crowin.userservice.util.ClientErrorCode.USERNAME_ALREAD
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class UserService implements UserDetailsService {
+public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var user = userRepository
-                .findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
-
-        return User.withUsername(user.getUsername())
-                .password(user.getPasswordHash())
-                .roles(user.getRole().name())
-                .build();
-    }
 
     public void createUser(NewUserRequest newUser){
         if (userRepository.findByUsername(newUser.username()).isPresent()) {
