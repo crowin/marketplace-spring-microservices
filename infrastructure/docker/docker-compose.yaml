@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  marketplace-postgres:
+    image: pgvector/pgvector:pg16
+    container_name: "marketplace-postgres-db"
+    ports:
+      - "15438:5432"
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./postgresql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - marketplace-db-vol:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready", "-d", "marketplace-postgres-db" ]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
+
+volumes:
+  marketplace-db-vol:
+    driver: local
