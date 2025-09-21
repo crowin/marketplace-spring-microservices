@@ -4,13 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.github.crowin.userservice.dto.LoginRequest;
 import org.github.crowin.userservice.dto.NewUserRequest;
+import org.github.crowin.userservice.dto.TokenAuthResponse;
 import org.github.crowin.userservice.exception.ClientBasicException;
 import org.github.crowin.userservice.mapper.UserMapper;
 import org.github.crowin.userservice.repository.UserRepository;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.github.crowin.userservice.util.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,15 +30,18 @@ public class UserService {
         }
         var user = userMapper.toEntity(newUser);
         userRepository.save(user);
+        log.info("User created: {}", user.getId());
     }
 
-    public void login(LoginRequest loginRequest){
+    public TokenAuthResponse login(LoginRequest loginRequest){
         var foundUser = userRepository
                 .findByUsername(loginRequest.username())
                 .orElseThrow(() -> new ClientBasicException("User not found: " + loginRequest.username(), USERNAME_ALREADY_EXISTS));
         if (!passwordEncoder.matches(loginRequest.password(), foundUser.getPasswordHash())) {
-            log.error("Invalid password for user: {}", loginRequest.username());
             throw new ClientBasicException("Invalid credentials", INVALID_CREDENTIALS);
         }
+
+        var token = JwtUtil.generateToken(foundUser.getUsername(), foundUser.getId());
+        return new TokenAuthResponse(token, "<JWT_TOKEN>");
     }
 }
