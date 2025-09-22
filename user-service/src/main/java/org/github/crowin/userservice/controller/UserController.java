@@ -26,6 +26,11 @@ public class UserController {
         return ResponseEntity.ok().body(tokenResp);
     }
 
+    @PostMapping("/validate-token")
+    public ResponseEntity<Void> validateToken() {
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/hello")
     public ResponseEntity<String> hello() {
         return ResponseEntity.ok("Hello from user service!");
