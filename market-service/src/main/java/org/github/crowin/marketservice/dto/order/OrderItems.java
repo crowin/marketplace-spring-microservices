@@ -1,6 +1,6 @@
 package org.github.crowin.marketservice.dto.order;
 
-import org.github.crowin.marketservice.dto.ProductDto;
+import org.github.crowin.marketservice.dto.product.ProductDto;
 
 import java.util.List;
 

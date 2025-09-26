@@ -1,13 +1,13 @@
-package org.github.crowin.userservice;
+package org.github.crowin.marketservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class UserServiceApplication {
+public class MarketServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(UserServiceApplication.class, args);
+        SpringApplication.run(MarketServiceApplication.class, args);
     }
 
 }

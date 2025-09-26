@@ -26,9 +26,9 @@ public class UserController {
         return ResponseEntity.ok().body(tokenResp);
     }
 
-    @PostMapping("/validate-token")
+    @GetMapping("/validate-token")
     public ResponseEntity<Void> validateToken() {
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/hello")

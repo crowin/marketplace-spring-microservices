@@ -1,6 +1,8 @@
 package org.github.crowin.userservice.util;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
 
 import javax.crypto.SecretKey;
@@ -12,7 +14,8 @@ import static io.jsonwebtoken.Jwts.SIG.HS256;
 
 
 public class JwtUtil {
-    private static final SecretKey SECRET_KEY = HS256.key().build();
+    private static final String SECRET_BASE64 = "bXlzdXBlcnNlY3JldGtleTEyMzQ1Njc4OTAxMjM0NTY3ODkw";
+    private static final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_BASE64));
     private static final long EXPIRATION_TIME = TimeUnit.DAYS.toMillis(7);
 
     public static String generateToken(String username, Long userId) {

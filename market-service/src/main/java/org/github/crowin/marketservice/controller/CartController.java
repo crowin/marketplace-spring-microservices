@@ -20,7 +20,7 @@ public class CartController {
         return "added to cart";
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping("/product")
     public String removeFromCart(@RequestParam Long productId) {
         marketService.removeFromCart(productId);
         return "removed from cart";

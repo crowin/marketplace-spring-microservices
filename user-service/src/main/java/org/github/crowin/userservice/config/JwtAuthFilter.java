@@ -5,6 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.github.crowin.userservice.service.JpaUserDetailsService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,8 +21,9 @@ import static org.github.crowin.userservice.util.JwtUtil.getSecretKey;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
-    private JpaUserDetailsService userDetailsService;
+    private final JpaUserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -40,7 +42,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             var claims = Jwts.parser()
                     .verifyWith(getSecretKey())
                     .build()
-                    .parseSignedClaims(token)
+                    .parseClaimsJws(token)
                     .getPayload();
 
             final var username = claims.getSubject();

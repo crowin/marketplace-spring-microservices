@@ -1,16 +1,16 @@
-CREATE TYPE user_role AS ENUM ('ADMIN', 'USER');
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE products (
     id bigserial primary key,
     title varchar(255),
-    price numeric
+    price float
 );
 
 CREATE TABLE carts (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4()
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     user_id bigint not null,
     products jsonb,
-    total_price double
+    total_price float
 );
 
 -- CREATE TABLE orders (

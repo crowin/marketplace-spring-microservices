@@ -21,7 +21,7 @@ public class OrderController {
 
     @GetMapping("/")
     public String getOrders() {
-        orderService.getOrders();
+        orderService.getOrder();
         return "orders";
     }
 }
