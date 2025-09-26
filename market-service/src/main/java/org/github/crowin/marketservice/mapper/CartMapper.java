@@ -12,5 +12,6 @@ public interface CartMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "userId", ignore = true)
-    Cart toEntity(CartDto cartDto);
+    Cart toCartEntity(CartDto cartDto);
+
 }

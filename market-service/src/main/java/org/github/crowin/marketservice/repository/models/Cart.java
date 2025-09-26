@@ -2,9 +2,10 @@ package org.github.crowin.marketservice.repository.models;
 
 import com.vladmihalcea.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.github.crowin.marketservice.dto.cart.CartProduct;
+import org.github.crowin.marketservice.dto.cart.CartProductDto;
 import org.hibernate.annotations.Type;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Table(name = "carts")
 @Getter
 @Setter
+@Builder
 public class Cart {
     @Id
     @Column(columnDefinition = "UUID")
@@ -24,7 +26,7 @@ public class Cart {
 
     @Type(JsonType.class)
     @Column(columnDefinition = "jsonb")
-    private List<CartProduct> products;
+    private List<CartProductDto> products;
 
     private Double totalPrice;
 }

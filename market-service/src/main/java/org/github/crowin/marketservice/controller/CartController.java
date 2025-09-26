@@ -1,10 +1,13 @@
 package org.github.crowin.marketservice.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.github.crowin.marketservice.dto.BasicResponse;
 import org.github.crowin.marketservice.dto.cart.CartDto;
-import org.github.crowin.marketservice.dto.cart.CartProduct;
+import org.github.crowin.marketservice.dto.cart.CartProductDto;
+import org.github.crowin.marketservice.repository.models.Cart;
 import org.github.crowin.marketservice.service.MarketService;
 import org.github.crowin.marketservice.service.ProductService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,9 +18,9 @@ public class CartController {
     private final ProductService productService;
 
     @PutMapping("/")
-    public String addToCart(@RequestBody CartProduct product) {
-        marketService.addToCart(product);
-        return "added to cart";
+    public BasicResponse<Cart> addToCart(@RequestBody CartProductDto product) {
+        var cart = marketService.addToCart(1L, product);
+        return BasicResponse.of(cart);
     }
 
     @DeleteMapping("/product")
@@ -27,13 +30,13 @@ public class CartController {
     }
 
     @DeleteMapping("/")
-    public String clearCart() {
-        marketService.clearCart();
-        return "cleared cart";
+    public ResponseEntity<Void> clearCart() {
+        marketService.clearCart(1L);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/")
     public CartDto getCart() {
-        return marketService.getCart();
+        return marketService.getCart(1L);
     }
 }

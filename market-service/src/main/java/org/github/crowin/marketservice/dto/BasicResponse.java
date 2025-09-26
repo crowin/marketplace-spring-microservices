@@ -2,6 +2,9 @@ package org.github.crowin.marketservice.dto;
 
 import lombok.Builder;
 
+/*
+Basic Response DTO
+ */
 @Builder
 public record BasicResponse<T>(
         T data,
