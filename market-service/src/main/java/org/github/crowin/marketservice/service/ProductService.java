@@ -18,7 +18,7 @@ public class ProductService {
 
     public ListData<ProductDto> getProducts(int page, int size) {
         var products = productsRepository.findAll(Pageable.ofSize(size).withPage(page));
-        log.info("Found {} products", products.getTotalElements());
+        log.info("Found {} items", products.getTotalElements());
         return productMapper.toProductsDto(products);
     }
 }

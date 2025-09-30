@@ -12,11 +12,3 @@ CREATE TABLE carts (
     products jsonb,
     total_price float
 );
-
--- CREATE TABLE orders (
---                         id uuid primary key,
---                         user_order_id bigint auto_increment unique not null,
---                         user_id bigint not null,
---                         title varchar(255),
---                         price double
--- );

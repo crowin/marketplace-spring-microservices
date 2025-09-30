@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.github.crowin.marketservice.dto.cart.CartProductDto;
+import org.github.crowin.marketservice.dto.order.ItemDto;
 import org.hibernate.annotations.Type;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class Cart {
 
     @Type(JsonType.class)
     @Column(columnDefinition = "jsonb")
-    private List<CartProductDto> products;
+    private List<ItemDto> products;
 
     private Double totalPrice;
 }

@@ -3,7 +3,7 @@ package org.github.crowin.marketservice.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.github.crowin.marketservice.dto.cart.CartDto;
-import org.github.crowin.marketservice.dto.cart.CartProductDto;
+import org.github.crowin.marketservice.dto.order.ItemDto;
 import org.github.crowin.marketservice.mapper.CartMapper;
 import org.github.crowin.marketservice.mapper.ProductMapper;
 import org.github.crowin.marketservice.repository.CartRepository;
@@ -22,14 +22,14 @@ public class MarketService {
     private final CartMapper cartMapper;
 
     @Transactional
-    public Cart addToCart(Long userId, CartProductDto product) {
+    public Cart addToCart(Long userId, ItemDto product) {
         var cart = cartRepository.findByUserId(userId)
                 .orElseGet(() -> Cart.builder()
                         .userId(userId)
                         .totalPrice(0.0)
                         .products(new ArrayList<>())
                         .build());
-        calculateAndAAddProduct(cart, product);
+        calculateAndAddProduct(cart, product);
         log.info("Cart updated for {} user", userId);
         return cartRepository.save(cart);
     }
@@ -52,7 +52,7 @@ public class MarketService {
     }
 
 
-    private void calculateAndAAddProduct(Cart cart, CartProductDto product) {
+    private void calculateAndAddProduct(Cart cart, ItemDto product) {
         product.updateTotalPrice();
         cart.getProducts().add(product);
         cart.setTotalPrice(cart.getTotalPrice() + product.getTotalPrice());
