@@ -32,13 +32,26 @@ subprojects {subproj ->
     dependencies {
         if (subproj.name != 'gateway-service') {
             implementation 'org.springframework.boot:spring-boot-starter-web'
-            testImplementation 'org.testcontainers:junit-jupiter'
+            implementation 'org.springframework.boot:spring-boot-starter-security'
             implementation 'org.springframework.boot:spring-boot-starter-validation'
+            implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
             compileOnly 'org.projectlombok:lombok:1.18.42'
             annotationProcessor 'org.projectlombok:lombok:1.18.42'
             implementation 'org.mapstruct:mapstruct:1.6.3'
             annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+
+            runtimeOnly 'org.postgresql:postgresql'
+            implementation 'org.flywaydb:flyway-core'
+            implementation 'org.flywaydb:flyway-database-postgresql'
+
+            testImplementation 'org.testcontainers:junit-jupiter'
             testImplementation 'org.springframework.boot:spring-boot-starter-test'
+            testImplementation 'org.testcontainers:postgresql'
+
+            implementation 'io.jsonwebtoken:jjwt-api:0.13.0'
+            implementation 'io.jsonwebtoken:jjwt-impl:0.13.0'
+            implementation 'io.jsonwebtoken:jjwt-jackson:0.13.0'
+            implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13'
         }
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
     }
