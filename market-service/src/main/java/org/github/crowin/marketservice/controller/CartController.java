@@ -9,6 +9,7 @@ import org.github.crowin.marketservice.dto.order.ItemDto;
 import org.github.crowin.marketservice.repository.models.Cart;
 import org.github.crowin.marketservice.service.MarketService;
 import org.github.crowin.marketservice.service.ProductService;
+import org.github.crowin.marketservice.utils.SecurityUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,12 +19,12 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Cart", description = "API to work with user cart")
 public class CartController {
     private final MarketService marketService;
-    private final ProductService productService;
+    private final SecurityUtils securityUtils;
 
     @Operation(summary = "Add a product to the cart")
     @PutMapping("/")
     public BasicResponse<Cart> addToCart(@RequestBody ItemDto product) {
-        var cart = marketService.addToCart(1L, product);
+        var cart = marketService.addToCart(securityUtils.getUserId(), product);
         return BasicResponse.of(cart);
     }
 
@@ -37,13 +38,13 @@ public class CartController {
     @Operation(summary = "Clear the cart")
     @DeleteMapping("/")
     public ResponseEntity<Void> clearCart() {
-        marketService.clearCart(1L);
+        marketService.clearCart(securityUtils.getUserId());
         return ResponseEntity.noContent().build();
     }
 
     @Operation(summary = "Get the cart")
     @GetMapping("/")
     public CartDto getCart() {
-        return marketService.getCart(1L);
+        return marketService.getCart(securityUtils.getUserId());
     }
 }

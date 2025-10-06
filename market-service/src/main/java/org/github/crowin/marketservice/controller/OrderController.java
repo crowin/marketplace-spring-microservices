@@ -8,6 +8,7 @@ import org.github.crowin.marketservice.dto.ListData;
 import org.github.crowin.marketservice.dto.order.OrderDto;
 import org.github.crowin.marketservice.service.MarketService;
 import org.github.crowin.marketservice.service.OrderService;
+import org.github.crowin.marketservice.utils.SecurityUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,18 +18,19 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
     private final OrderService orderService;
     private final MarketService marketService;
+    private final SecurityUtils securityUtils;
 
     @Operation(summary = "Place a new order")
     @PostMapping("/")
     public BasicResponse<OrderDto> placeOrder() {
-        marketService.getCart(1L);
-        return BasicResponse.of(orderService.placeOrder(1L));
+        marketService.getCart(securityUtils.getUserId());
+        return BasicResponse.of(orderService.placeOrder(securityUtils.getUserId()));
     }
 
     @Operation(summary = "Get all orders")
     @GetMapping("/")
     public BasicResponse<ListData<OrderDto>> getOrders(@RequestParam(defaultValue = "0") int page,
                                                        @RequestParam(defaultValue = "5") int size) {
-        return BasicResponse.of(orderService.getOrders(1L, size, page));
+        return BasicResponse.of(orderService.getOrders(securityUtils.getUserId(), size, page));
     }
 }

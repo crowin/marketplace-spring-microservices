@@ -8,12 +8,11 @@ import org.github.crowin.marketservice.mapper.CartMapper;
 import org.github.crowin.marketservice.mapper.ProductMapper;
 import org.github.crowin.marketservice.repository.CartRepository;
 import org.github.crowin.marketservice.repository.models.Cart;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service @RequiredArgsConstructor @Slf4j
 public class MarketService {
@@ -48,11 +47,12 @@ public class MarketService {
     public CartDto getCart(Long userId) {
         return cartRepository.findByUserId(userId)
                 .map(cartMapper::toDto)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart not found"));
+                .orElse(new CartDto(List.of(), 0.0));
     }
 
 
     private void calculateAndAddProduct(Cart cart, ItemDto product) {
+        //local calculation of total price for demo purposes
         product.updateTotalPrice();
         cart.getProducts().add(product);
         cart.setTotalPrice(cart.getTotalPrice() + product.getTotalPrice());
