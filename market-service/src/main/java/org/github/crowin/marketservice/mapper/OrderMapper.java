@@ -1,26 +1,24 @@
 package org.github.crowin.marketservice.mapper;
 
 import org.github.crowin.marketservice.dto.ListData;
+import org.github.crowin.marketservice.dto.cart.CartDto;
 import org.github.crowin.marketservice.dto.order.OrderDto;
 import org.github.crowin.marketservice.dto.order.OrderItems;
-import org.github.crowin.marketservice.dto.product.ProductDto;
-import org.github.crowin.marketservice.repository.models.Cart;
 import org.github.crowin.marketservice.repository.models.Order;
-import org.github.crowin.marketservice.repository.models.Product;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.data.domain.Page;
-
-import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
 
+    @Mapping(target = "id", ignore = true)
     OrderDto toDto(Order product);
 
-    default Order toEntity(Cart cart) {
+    default Order toEntity(Long userId, CartDto cart) {
         return Order.builder()
-                .items(new OrderItems(cart.getProducts(), cart.getTotalPrice()))
-                .userId(cart.getUserId())
+                .items(new OrderItems(cart.items(), cart.totalPrice()))
+                .userId(userId)
                 .build();
     }
 

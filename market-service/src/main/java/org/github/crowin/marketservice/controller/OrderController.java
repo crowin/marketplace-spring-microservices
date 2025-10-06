@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.github.crowin.marketservice.dto.BasicResponse;
 import org.github.crowin.marketservice.dto.ListData;
 import org.github.crowin.marketservice.dto.order.OrderDto;
-import org.github.crowin.marketservice.service.MarketService;
+import org.github.crowin.marketservice.service.CartService;
 import org.github.crowin.marketservice.service.OrderService;
 import org.github.crowin.marketservice.utils.SecurityUtils;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Orders", description = "API to work with user orders")
 public class OrderController {
     private final OrderService orderService;
-    private final MarketService marketService;
+    private final CartService cartService;
     private final SecurityUtils securityUtils;
 
     @Operation(summary = "Place a new order")
     @PostMapping("/")
     public BasicResponse<OrderDto> placeOrder() {
-        marketService.getCart(securityUtils.getUserId());
+        cartService.getCart(securityUtils.getUserId());
         return BasicResponse.of(orderService.placeOrder(securityUtils.getUserId()));
     }
 

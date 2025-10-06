@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.github.crowin.marketservice.dto.BasicResponse;
 import org.github.crowin.marketservice.dto.ListData;
 import org.github.crowin.marketservice.dto.product.ProductDto;
-import org.github.crowin.marketservice.service.MarketService;
+import org.github.crowin.marketservice.service.CartService;
 import org.github.crowin.marketservice.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Tag(name = "Products", description = "API to work with items")
 public class ProductsController {
-    private final MarketService marketService;
+    private final CartService cartService;
     private final ProductService productService;
 
     @Operation(summary = "Get all items")

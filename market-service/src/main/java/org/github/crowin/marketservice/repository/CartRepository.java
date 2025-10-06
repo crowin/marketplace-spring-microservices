@@ -12,5 +12,5 @@ public interface CartRepository extends CrudRepository<Cart, UUID> {
 
     Optional<Cart> findByUserId(Long userId);
 
-    boolean deleteByUserId(Long userId);
+    Optional<Cart> deleteByUserId(Long userId);
 }

@@ -9,6 +9,7 @@ import org.github.crowin.marketservice.repository.CartRepository;
 import org.github.crowin.marketservice.repository.OrderRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -18,14 +19,17 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final CartService cartService;
     private final CartRepository cartRepository;
     private final OrderMapper orderMapper;
 
+    @Transactional
     public OrderDto placeOrder(Long userId) {
         var cart = cartRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "Cart not found"));
+        var cartDto = cartService.mapCartDto(cart);
         var user_order_id = userId + "_" + orderRepository.countByUserId(userId) + 1;
-        var order = orderMapper.toEntity(cart);
+        var order = orderMapper.toEntity(userId, cartDto);
         order.setUserOrderId(user_order_id);
         log.info("Order prepared for {} user", userId);
         var result = orderRepository.save(order);

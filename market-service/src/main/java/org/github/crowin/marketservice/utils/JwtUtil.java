@@ -17,11 +17,11 @@ public class JwtUtil {
      * @param token JWT token.
      * @return User id.
      */
-    public static Integer extractUserId(String token) {
+    public static Long extractUserId(String token) {
         return Jwts.parser()
                 .verifyWith(SECRET_KEY)
                 .build()
                 .parseSignedClaims(token)
-                .getPayload().get("userId", Integer.class);
+                .getPayload().get("userId", Long.class);
     }
 }
