@@ -1,3 +1,8 @@
 package org.github.crowin.marketservice.dto.order;
 
-public record ItemCartDto(Long itemId, Integer quantity) {}
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
+public record ItemCartDto(
+        @NotNull @Min(value = 1) Long itemId,
+        @Min(value = 1) Integer quantity) {}

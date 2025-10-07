@@ -41,3 +41,6 @@ bin/
 ### Mac OS ###
 .DS_Store
 /.idea/
+/market-ui/node_modules/
+/market-ui/package-lock.json
+/market-ui/dist/

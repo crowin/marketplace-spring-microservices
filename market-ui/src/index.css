@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Теперь можно глобально применять Tailwind классы */
+body {
+    @apply bg-slate-50 text-slate-800;
+}

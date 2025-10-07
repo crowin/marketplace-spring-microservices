@@ -2,6 +2,7 @@ package org.github.crowin.marketservice.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.github.crowin.marketservice.dto.BasicResponse;
 import org.github.crowin.marketservice.dto.cart.CartDto;
@@ -14,14 +15,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/cart")
 @RequiredArgsConstructor
-@Tag(name = "Cart", description = "API to work with user cart")
+@Tag(name = "Cart", description = "API to work with a customer cart")
 public class CartController {
     private final CartService cartService;
     private final SecurityUtils securityUtils;
 
     @Operation(summary = "Add a product to the cart")
     @PutMapping
-    public BasicResponse<CartDto> addToCart(@RequestBody ItemCartDto item) {
+    public BasicResponse<CartDto> addToCart(@Valid @RequestBody ItemCartDto item) {
         var cart = cartService.addToCart(securityUtils.getUserId(), item);
         return BasicResponse.of(cart);
     }

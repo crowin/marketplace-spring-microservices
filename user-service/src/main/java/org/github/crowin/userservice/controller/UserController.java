@@ -2,6 +2,7 @@ package org.github.crowin.userservice.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.github.crowin.userservice.dto.LoginRequest;
 import org.github.crowin.userservice.dto.NewUserRequest;
@@ -11,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
 @AllArgsConstructor
 @Tag(name = "Users", description = "API to work with users and tokens")
 public class UserController {
@@ -19,14 +19,14 @@ public class UserController {
 
     @Operation(summary = "Register a new user")
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody NewUserRequest newUser) {
+    public ResponseEntity<Void> register(@Valid @RequestBody NewUserRequest newUser) {
         userService.createUser(newUser);
         return ResponseEntity.noContent().build();
     }
 
     @Operation(summary = "Login a user")
     @PostMapping("/login")
-    public ResponseEntity<TokenAuthResponse> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<TokenAuthResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         var tokenResp = userService.login(loginRequest);
         return ResponseEntity.ok().body(tokenResp);
     }
