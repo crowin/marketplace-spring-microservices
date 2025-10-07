@@ -35,7 +35,7 @@ export default function CartPage() {
   return (
     <div>
       <h1 className="text-2xl mb-4">Your Cart</h1>
-      {cart.items.length === 0 ? <div>Your cart is empty</div> : (
+      {cart.items.length === 0 ? <div data-test-id="empty-cart-notice">Your cart is empty</div> : (
         <>
           <div className="space-y-3">
             {cart.items.map(it => (
@@ -46,16 +46,16 @@ export default function CartPage() {
                 </div>
                 <div className="flex gap-2 items-center">
                   <div className="font-medium">{it.totalPrice.toFixed(2)}</div>
-                  <button onClick={() => handleRemove(it.product.id)} className="px-3 py-1 border rounded">Remove</button>
+                  <button onClick={() => handleRemove(it.product.id)} className="px-3 py-1 border rounded" data-test-id="remove-item">Remove</button>
                 </div>
               </div>
             ))}
           </div>
           <div className="mt-4 flex justify-between items-center">
-            <div className="text-lg font-semibold">Total: {cart.totalPrice?.toFixed(2)}</div>
+            <div className="text-lg font-semibold" data-test-id="total-price">Total: {cart.totalPrice?.toFixed(2)}</div>
             <div className="flex gap-2">
-              <button onClick={handleClear} className="px-3 py-1 rounded border">Clear cart</button>
-              <button onClick={handlePlaceOrder} className="px-3 py-1 bg-indigo-600 text-white rounded">Place order</button>
+              <button onClick={handleClear} className="px-3 py-1 rounded border" data-test-id="clear-cart">Clear cart</button>
+              <button onClick={handlePlaceOrder} className="px-3 py-1 bg-indigo-600 text-white rounded" data-test-id="place-order">Place order</button>
             </div>
           </div>
         </>

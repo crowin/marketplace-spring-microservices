@@ -19,10 +19,10 @@ export default function Header() {
           </div>
         </Link>
 
-        <nav className="flex items-center gap-3">
-          <Link to="/products" className="px-3 py-2 rounded hover:bg-slate-100">Products</Link>
-          <Link to="/orders" className="px-3 py-2 rounded hover:bg-slate-100">Orders</Link>
-          <Link to="/cart" onClick={refreshCart} className="px-3 py-2 rounded hover:bg-slate-100">
+        <nav className="flex items-center gap-3" data-test-id="header-nav">
+          <Link to="/products" className="px-3 py-2 rounded hover:bg-slate-100" data-test-id="products-link">Products</Link>
+          <Link to="/orders" className="px-3 py-2 rounded hover:bg-slate-100" data-test-id="orders-link">Orders</Link>
+          <Link to="/cart" onClick={refreshCart} className="px-3 py-2 rounded hover:bg-slate-100"  data-test-id="cart-link">
             Cart {cartCount > 0 ? `(${cartCount})` : ''}
           </Link>
           {token ? (
@@ -31,8 +31,8 @@ export default function Header() {
             </button>
           ) : (
             <>
-              <Link to="/login" className="px-3 py-2 rounded hover:bg-slate-100">Login</Link>
-              <Link to="/register" className="px-3 py-2 rounded hover:bg-slate-100">Register</Link>
+              <Link to="/login" className="px-3 py-2 rounded hover:bg-slate-100"  data-test-id="login-link">Login</Link>
+              <Link to="/register" className="px-3 py-2 rounded hover:bg-slate-100"  data-test-id="register-link">Register</Link>
             </>
           )}
         </nav>

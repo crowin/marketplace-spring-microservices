@@ -22,12 +22,12 @@ export default function ProductCard({ product }: { product: ProductDto }) {
   }
 
   return (
-    <div className="p-4 border rounded bg-white relative">
+    <div className="p-4 border rounded bg-white relative" data-test-id="product-card">
       <div className="font-semibold">{product.title}</div>
       <div className="text-sm text-slate-600">Price: {product.price.toFixed(2)}</div>
       <div className="mt-3 flex items-center gap-2">
-        <input type="number" min={1} value={qty} onChange={(e) => setQty(Math.max(1, Number(e.target.value || 1)))} className="w-20 p-1 border rounded" />
-        <button onClick={handleAdd} disabled={loading} className="px-3 py-1 bg-indigo-600 text-white rounded">
+        <input type="number" min={1} value={qty} onChange={(e) => setQty(Math.max(1, Number(e.target.value || 1)))} className="w-20 p-1 border rounded" data-test-id="product-qty" />
+        <button onClick={handleAdd} disabled={loading} className="px-3 py-1 bg-indigo-600 text-white rounded" data-test-id="product-add">
           {loading ? 'Adding...' : 'Add to cart'}
         </button>
       </div>

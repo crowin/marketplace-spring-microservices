@@ -29,14 +29,14 @@ export default function ProductsPage() {
       <h1 className="text-2xl mb-4">Products</h1>
       {loading ? <div>Loading products...</div> : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" data-test-id="product-list">
             {items.map(p => <ProductCard key={p.id} product={p} />)}
           </div>
-          <div className="mt-6 flex justify-between items-center">
+          <div className="mt-6 flex justify-between items-center" data-test-id="pagination">
             <div>Page {page + 1} of {Math.max(1, totalPages)}</div>
             <div className="flex gap-2">
-              <button onClick={() => setPage(p => Math.max(0, p - 1))} className="px-3 py-1 border rounded">Prev</button>
-              <button onClick={() => setPage(p => p + 1)} className="px-3 py-1 border rounded">Next</button>
+              <button onClick={() => setPage(p => Math.max(0, p - 1))} className="px-3 py-1 border rounded" data-test-id="prev-page">Prev</button>
+              <button onClick={() => setPage(p => p + 1)} className="px-3 py-1 border rounded" data-test-id="next-page">Next</button>
             </div>
           </div>
         </>

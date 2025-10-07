@@ -26,9 +26,9 @@ export default function OrdersPage() {
       {loading ? <div>Loading...</div> : (
         <>
           {orders.length === 0 ? <div>No orders yet.</div> : (
-            <div className="space-y-3">
+            <div className="space-y-3" data-test-id="orders-list">
               {orders.map(o => (
-                <div className="bg-white p-3 rounded" key={o.id}>
+                <div className="bg-white p-3 rounded" key={o.id} data-test-id="order-item">
                   <div className="flex justify-between">
                     <div className="font-semibold">Order #{o.id}</div>
                     <div className="text-sm text-slate-600">{o.status}</div>

@@ -27,14 +27,14 @@ export default function LoginPage() {
       <form onSubmit={handleSubmit} className="space-y-3 bg-white p-4 rounded">
         <div>
           <label className="block text-sm">Username</label>
-          <input value={username} onChange={e => setUsername(e.target.value)} className="w-full p-2 border rounded" />
+          <input value={username} onChange={e => setUsername(e.target.value)} className="w-full p-2 border rounded" data-test-id="username"/>
         </div>
         <div>
           <label className="block text-sm">Password</label>
-          <input type="password" value={password} onChange={e => setPassword(e.target.value)} className="w-full p-2 border rounded" />
+          <input type="password" value={password} onChange={e => setPassword(e.target.value)} className="w-full p-2 border rounded" data-test-id="password"/>
         </div>
         <div className="flex gap-2">
-          <button className="px-3 py-1 bg-indigo-600 text-white rounded">Login</button>
+          <button className="px-3 py-1 bg-indigo-600 text-white rounded" data-test-id="login">Login</button>
           <button type="button" onClick={() => { setUsername('testuser'); setPassword('password123') }} className="px-3 py-1 border rounded">Fill demo</button>
         </div>
       </form>
